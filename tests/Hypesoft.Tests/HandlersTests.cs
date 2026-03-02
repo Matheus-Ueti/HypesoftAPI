@@ -1,6 +1,7 @@
 using AutoMapper;
 using FluentAssertions;
 using NSubstitute;
+using Xunit;
 using Hypesoft.Application.Commands;
 using Hypesoft.Application.DTOs;
 using Hypesoft.Application.Handlers;

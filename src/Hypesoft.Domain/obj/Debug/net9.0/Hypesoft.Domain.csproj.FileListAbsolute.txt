@@ -1,0 +1,13 @@
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Domain\bin\Debug\net9.0\Hypesoft.Domain.deps.json
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Domain\bin\Debug\net9.0\Hypesoft.Domain.dll
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Domain\bin\Debug\net9.0\Hypesoft.Domain.pdb
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Domain\obj\Debug\net9.0\Hypesoft.Domain.csproj.AssemblyReference.cache
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Domain\obj\Debug\net9.0\Hypesoft.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Domain\obj\Debug\net9.0\Hypesoft.Domain.AssemblyInfoInputs.cache
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Domain\obj\Debug\net9.0\Hypesoft.Domain.AssemblyInfo.cs
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Domain\obj\Debug\net9.0\Hypesoft.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Domain\obj\Debug\net9.0\Hypesoft.Domain.sourcelink.json
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Domain\obj\Debug\net9.0\Hypesoft.Domain.dll
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Domain\obj\Debug\net9.0\refint\Hypesoft.Domain.dll
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Domain\obj\Debug\net9.0\Hypesoft.Domain.pdb
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Domain\obj\Debug\net9.0\ref\Hypesoft.Domain.dll

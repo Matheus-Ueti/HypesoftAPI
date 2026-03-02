@@ -1,0 +1,16 @@
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Application\bin\Debug\net9.0\Hypesoft.Application.deps.json
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Application\bin\Debug\net9.0\Hypesoft.Application.dll
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Application\bin\Debug\net9.0\Hypesoft.Application.pdb
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Application\bin\Debug\net9.0\Hypesoft.Domain.dll
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Application\bin\Debug\net9.0\Hypesoft.Domain.pdb
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Application\obj\Debug\net9.0\Hypesoft.Application.csproj.AssemblyReference.cache
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Application\obj\Debug\net9.0\Hypesoft.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Application\obj\Debug\net9.0\Hypesoft.Application.AssemblyInfoInputs.cache
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Application\obj\Debug\net9.0\Hypesoft.Application.AssemblyInfo.cs
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Application\obj\Debug\net9.0\Hypesoft.Application.csproj.CoreCompileInputs.cache
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Application\obj\Debug\net9.0\Hypesoft.Application.sourcelink.json
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Application\obj\Debug\net9.0\Hypesoft.61B6789D.Up2Date
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Application\obj\Debug\net9.0\Hypesoft.Application.dll
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Application\obj\Debug\net9.0\refint\Hypesoft.Application.dll
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Application\obj\Debug\net9.0\Hypesoft.Application.pdb
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.Application\obj\Debug\net9.0\ref\Hypesoft.Application.dll
