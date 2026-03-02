@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    container_name: keycloak
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+
+  api:
+    build: .
+    container_name: hypesoft-api
+    ports:
+      - "5000:5000"
+    environment:
+      MongoDB__ConnectionString: mongodb://mongodb:27017
+      MongoDB__DatabaseName: hypesoft
+      Keycloak__Authority: http://keycloak:8080/realms/shopsense
+      Keycloak__ClientId: shopsense-frontend
+    depends_on:
+      - mongodb
+      - keycloak
+
+volumes:
+  mongo_data:
