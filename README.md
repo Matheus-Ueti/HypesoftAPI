@@ -140,3 +140,97 @@ No arquivo `src/Hypesoft.API/appsettings.json`:
 ## CORS
 
 Configurado para aceitar requisições de `http://localhost:5173` (frontend Vue/Vite).
+
+---
+
+## Arquitetura do Sistema (C4 Model)
+
+### Nível 1 — Contexto
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                     ShopSense System                     │
+│                                                          │
+│  ┌──────────┐    HTTP/JWT    ┌──────────────────────┐   │
+│  │  Usuário │ ─────────────► │   Frontend (Vue/Vite) │  │
+│  └──────────┘                └──────────┬───────────┘   │
+│                                         │ REST/JSON      │
+│                              ┌──────────▼───────────┐   │
+│                              │   Backend (ASP.NET)   │   │
+│                              └──────────┬───────────┘   │
+│                    ┌─────────────────────┘              │
+│          ┌─────────▼──────┐   ┌──────────────────┐     │
+│          │    MongoDB     │   │    Keycloak       │     │
+│          │  (dados)       │   │  (autenticação)   │     │
+│          └────────────────┘   └──────────────────┘     │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Nível 2 — Containers
+
+| Container | Tecnologia | Responsabilidade |
+|---|---|---|
+| Frontend | Vue 3 + Vite | Interface do usuário, consome a API |
+| Backend API | ASP.NET Core 9 | Lógica de negócio, endpoints REST |
+| MongoDB | MongoDB 7 | Persistência dos dados |
+| Keycloak | Keycloak 26 | Autenticação OAuth2/OpenID Connect |
+
+### Nível 3 — Componentes (Backend)
+
+```
+Hypesoft.API  ──►  Hypesoft.Application  ──►  Hypesoft.Domain
+                          │
+                          ▼
+               Hypesoft.Infrastructure  ──►  MongoDB
+```
+
+| Camada | Responsabilidade |
+|---|---|
+| **Domain** | Entidades, regras de negócio, interfaces de repositório |
+| **Application** | Commands, Queries, Handlers, DTOs, Validadores |
+| **Infrastructure** | Repositórios MongoDB, contexto, seed de dados |
+| **API** | Controllers, Middlewares, configuração de DI |
+
+---
+
+## Decisões Arquiteturais (ADRs)
+
+### ADR-001: MongoDB como banco de dados principal
+
+**Contexto:** Sistema de gestão de produtos com possibilidade de atributos flexíveis por categoria.
+
+**Decisão:** Usar MongoDB via `MongoDB.Driver` sem Entity Framework.
+
+**Motivo:**
+- Schema flexível facilita evolução dos modelos de produto
+- Performance de leitura superior para consultas simples
+- Sem overhead do ORM para um domínio relativamente simples
+- Alinhado com o stack sugerido no desafio
+
+---
+
+### ADR-002: Keycloak para autenticação
+
+**Contexto:** Sistema precisa de autenticação segura com suporte a OAuth2/OpenID Connect.
+
+**Decisão:** Integrar Keycloak como Identity Provider externo.
+
+**Motivo:**
+- Solução enterprise battle-tested para auth
+- Suporte nativo a OAuth2, OpenID Connect e JWT
+- Permite adicionar SSO, MFA e roles granulares sem alterar o backend
+- Desacopla a lógica de autenticação da aplicação
+
+---
+
+### ADR-003: Clean Architecture + CQRS
+
+**Contexto:** Projeto precisa ser maintível, testável e escalável.
+
+**Decisão:** Adotar Clean Architecture com separação em 4 camadas + CQRS via MediatR.
+
+**Motivo:**
+- Dependências apontam sempre para dentro (Domain não depende de nada)
+- CQRS separa operações de leitura e escrita, facilitando otimização independente
+- MediatR desacopla Controllers dos Handlers, facilitando testes unitários
+- Estrutura facilita onboarding de novos desenvolvedores
