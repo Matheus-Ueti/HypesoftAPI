@@ -42,9 +42,27 @@ public static class ServiceExtensions
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
-                options.Authority            = configuration["Keycloak:Authority"];
-                options.Audience             = configuration["Keycloak:ClientId"];
                 options.RequireHttpsMetadata = false;
+                var metadataAddress = configuration["Keycloak:MetadataAddress"] ?? configuration["Keycloak:Authority"];
+                options.MetadataAddress = $"{metadataAddress}/.well-known/openid-configuration";
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateAudience = false,
+                    ValidIssuer      = configuration["Keycloak:Authority"]
+                };
+                options.Events = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents
+                {
+                    OnAuthenticationFailed = ctx =>
+                    {
+                        Serilog.Log.Warning("JWT falhou: {Error}", ctx.Exception.Message);
+                        return System.Threading.Tasks.Task.CompletedTask;
+                    },
+                    OnChallenge = ctx =>
+                    {
+                        Serilog.Log.Warning("JWT challenge: {Error} - {Desc}", ctx.Error, ctx.ErrorDescription);
+                        return System.Threading.Tasks.Task.CompletedTask;
+                    }
+                };
             });
 
         services.AddAuthorization();

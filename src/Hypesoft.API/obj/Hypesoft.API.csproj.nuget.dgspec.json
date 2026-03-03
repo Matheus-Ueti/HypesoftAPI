@@ -166,6 +166,10 @@
             "MediatR": {
               "target": "Package",
               "version": "[12.*, )"
+            },
+            "Microsoft.Extensions.Caching.Abstractions": {
+              "target": "Package",
+              "version": "[9.*, )"
             }
           },
           "imports": [

@@ -3,6 +3,7 @@ using System.Text.Json;
 using FluentValidation;
 using Hypesoft.Domain.Exceptions;
 
+
 namespace Hypesoft.API.Middlewares;
 
 public class ExceptionMiddleware

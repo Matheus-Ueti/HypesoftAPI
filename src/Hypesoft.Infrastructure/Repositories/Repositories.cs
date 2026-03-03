@@ -51,4 +51,45 @@ public class ProductRepository : BaseMongoRepository<Product>, IProductRepositor
 
     public async Task<IEnumerable<Product>> GetByCategoryAsync(string categoryId) =>
         await _collection.Find(x => x.CategoryId == categoryId).ToListAsync();
+
+    public async Task<(IEnumerable<Product> Items, long Total)> SearchAsync(
+        string? name, string? categoryId, int page, int pageSize)
+    {
+        var builder = Builders<Product>.Filter;
+        var filter = builder.Empty;
+
+        if (!string.IsNullOrWhiteSpace(name))
+            filter &= builder.Regex(x => x.Name, new MongoDB.Bson.BsonRegularExpression(name, "i"));
+
+        if (!string.IsNullOrWhiteSpace(categoryId))
+            filter &= builder.Eq(x => x.CategoryId, categoryId);
+
+        var total = await _collection.CountDocumentsAsync(filter);
+        var items = await _collection.Find(filter)
+            .Skip((page - 1) * pageSize)
+            .Limit(pageSize)
+            .ToListAsync();
+
+        return (items, total);
+    }
+
+    public async Task<IEnumerable<Product>> GetLowStockAsync(int threshold = 10) =>
+        await _collection.Find(x => x.Stock < threshold).ToListAsync();
+
+    public async Task<long> CountAsync() =>
+        await _collection.CountDocumentsAsync(_ => true);
+
+    public async Task<decimal> GetTotalStockValueAsync()
+    {
+        var products = await _collection.Find(_ => true).ToListAsync();
+        return products.Sum(p => p.Price * p.Stock);
+    }
+
+    public async Task<IEnumerable<(string CategoryId, int Count)>> GetCountByCategoryAsync()
+    {
+        var products = await _collection.Find(_ => true).ToListAsync();
+        return products
+            .GroupBy(p => p.CategoryId)
+            .Select(g => (g.Key, g.Count()));
+    }
 }

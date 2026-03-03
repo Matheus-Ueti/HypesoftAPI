@@ -97,11 +97,30 @@
           }
         }
       },
+      "Microsoft.Extensions.Caching.Abstractions/9.0.13": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "9.0.13"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Caching.Abstractions.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.1326.6317"
+          }
+        }
+      },
       "Microsoft.Extensions.DependencyModel/8.0.2": {
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.DependencyModel.dll": {
             "assemblyVersion": "8.0.0.2",
             "fileVersion": "8.0.1024.46610"
+          }
+        }
+      },
+      "Microsoft.Extensions.Primitives/9.0.13": {
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Primitives.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.1326.6317"
           }
         }
       },
@@ -177,26 +196,26 @@
           }
         }
       },
-      "MongoDB.Bson/3.6.0": {
+      "MongoDB.Bson/3.7.0": {
         "runtime": {
           "lib/net6.0/MongoDB.Bson.dll": {
-            "assemblyVersion": "3.6.0.0",
-            "fileVersion": "3.6.0.0"
+            "assemblyVersion": "3.7.0.0",
+            "fileVersion": "3.7.0.0"
           }
         }
       },
-      "MongoDB.Driver/3.6.0": {
+      "MongoDB.Driver/3.7.0": {
         "dependencies": {
           "DnsClient": "1.6.1",
-          "MongoDB.Bson": "3.6.0",
+          "MongoDB.Bson": "3.7.0",
           "SharpCompress": "0.30.1",
           "Snappier": "1.0.0",
           "ZstdSharp.Port": "0.7.3"
         },
         "runtime": {
           "lib/net6.0/MongoDB.Driver.dll": {
-            "assemblyVersion": "3.6.0.0",
-            "fileVersion": "3.6.0.0"
+            "assemblyVersion": "3.7.0.0",
+            "fileVersion": "3.7.0.0"
           }
         }
       },
@@ -383,7 +402,8 @@
           "FluentValidation": "11.12.0",
           "FluentValidation.DependencyInjectionExtensions": "11.12.0",
           "Hypesoft.Domain": "1.0.0",
-          "MediatR": "12.5.0"
+          "MediatR": "12.5.0",
+          "Microsoft.Extensions.Caching.Abstractions": "9.0.13"
         },
         "runtime": {
           "Hypesoft.Application.dll": {
@@ -395,7 +415,7 @@
       "Hypesoft.Domain/1.0.0": {
         "dependencies": {
           "MediatR": "12.5.0",
-          "MongoDB.Driver": "3.6.0"
+          "MongoDB.Driver": "3.7.0"
         },
         "runtime": {
           "Hypesoft.Domain.dll": {
@@ -409,7 +429,7 @@
           "AutoMapper": "13.0.1",
           "Hypesoft.Application": "1.0.0",
           "Hypesoft.Domain": "1.0.0",
-          "MongoDB.Driver": "3.6.0",
+          "MongoDB.Driver": "3.7.0",
           "Serilog": "4.3.1",
           "Serilog.Extensions.Hosting": "8.0.0",
           "Serilog.Sinks.Console": "6.1.1",
@@ -486,12 +506,26 @@
       "path": "microsoft.aspnetcore.authentication.jwtbearer/9.0.13",
       "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.9.0.13.nupkg.sha512"
     },
+    "Microsoft.Extensions.Caching.Abstractions/9.0.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nTT90JYIpcXEy6fcU8LPVycONkO6wipROgP9pyC4uxBif4fazu2rDzlWSntqtzr5p8GbQL2EopsYuTZR3yoeag==",
+      "path": "microsoft.extensions.caching.abstractions/9.0.13",
+      "hashPath": "microsoft.extensions.caching.abstractions.9.0.13.nupkg.sha512"
+    },
     "Microsoft.Extensions.DependencyModel/8.0.2": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-mUBDZZRgZrSyFOsJ2qJJ9fXfqd/kXJwf3AiDoqLD9m6TjY5OO/vLNOb9fb4juC0487eq4hcGN/M2Rh/CKS7QYw==",
       "path": "microsoft.extensions.dependencymodel/8.0.2",
       "hashPath": "microsoft.extensions.dependencymodel.8.0.2.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Primitives/9.0.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cqzLFZ6rIEX/N1mJAGN8HLqWhlks2G3eYO+9pCShMLqxeBLN7ndS+MbmxiuQiQ0Tj/Q3tVHRWx91n17yLczjmg==",
+      "path": "microsoft.extensions.primitives/9.0.13",
+      "hashPath": "microsoft.extensions.primitives.9.0.13.nupkg.sha512"
     },
     "Microsoft.IdentityModel.Abstractions/8.0.1": {
       "type": "package",
@@ -542,19 +576,19 @@
       "path": "microsoft.openapi/1.6.22",
       "hashPath": "microsoft.openapi.1.6.22.nupkg.sha512"
     },
-    "MongoDB.Bson/3.6.0": {
+    "MongoDB.Bson/3.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-lP+nZHej9cGFVsZSZQhSdBpD60q7a/ZiLBJcfd+CRWs36BHYteaMx6m1qaHCBWT1wft640r9I4SexqpMc3VscA==",
-      "path": "mongodb.bson/3.6.0",
-      "hashPath": "mongodb.bson.3.6.0.nupkg.sha512"
+      "sha512": "sha512-u8f0UAYe2/LWdvLEwwIjkCd2Rx6vBo6Yab+i+D4B3E0AvK1ndzIsIHuGBCeYeg5r8+/V+m1TXLonlhwT9Vfdrg==",
+      "path": "mongodb.bson/3.7.0",
+      "hashPath": "mongodb.bson.3.7.0.nupkg.sha512"
     },
-    "MongoDB.Driver/3.6.0": {
+    "MongoDB.Driver/3.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-MzEVPUo9FJ3A2fvXdKr0vGllbiAGvpyLa8bU6bucKSKndraSjfgGDn/J+ek/SrUK4A3yozYZBkwJZm8qe36VmQ==",
-      "path": "mongodb.driver/3.6.0",
-      "hashPath": "mongodb.driver.3.6.0.nupkg.sha512"
+      "sha512": "sha512-3Xr9Z6GzfewLbPNCtC+9Z8AvU9rtWzPG0Dl7BPYF2MiMxGMsrU/dp2cYOY39yxzOJAye/lWIWYX/lVmyQLQbYQ==",
+      "path": "mongodb.driver/3.7.0",
+      "hashPath": "mongodb.driver.3.7.0.nupkg.sha512"
     },
     "Serilog/4.3.1": {
       "type": "package",

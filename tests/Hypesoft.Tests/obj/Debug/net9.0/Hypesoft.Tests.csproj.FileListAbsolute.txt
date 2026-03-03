@@ -126,3 +126,5 @@ C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\tests\Hypesoft.Tests\
 C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\tests\Hypesoft.Tests\obj\Debug\net9.0\Hypesoft.Tests.pdb
 C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\tests\Hypesoft.Tests\obj\Debug\net9.0\Hypesoft.Tests.genruntimeconfig.cache
 C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\tests\Hypesoft.Tests\obj\Debug\net9.0\ref\Hypesoft.Tests.dll
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\tests\Hypesoft.Tests\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\tests\Hypesoft.Tests\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll

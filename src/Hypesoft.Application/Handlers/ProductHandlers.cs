@@ -1,5 +1,7 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Primitives;
 using Hypesoft.Application.Commands;
 using Hypesoft.Application.DTOs;
 using Hypesoft.Application.Queries;
@@ -13,17 +15,20 @@ public class CreateProductHandler : IRequestHandler<CreateProductCommand, Produc
 {
     private readonly IProductRepository _repository;
     private readonly IMapper _mapper;
+    private readonly IMemoryCache _cache;
 
-    public CreateProductHandler(IProductRepository repository, IMapper mapper)
+    public CreateProductHandler(IProductRepository repository, IMapper mapper, IMemoryCache cache)
     {
         _repository = repository;
         _mapper = mapper;
+        _cache = cache;
     }
 
     public async Task<ProductDto> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var product = Product.Create(request.Name, request.Description, request.Price, request.CategoryId, request.Stock);
         await _repository.CreateAsync(product);
+        ProductCacheHelper.InvalidateAll(_cache);
         return _mapper.Map<ProductDto>(product);
     }
 }
@@ -32,11 +37,13 @@ public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, Produc
 {
     private readonly IProductRepository _repository;
     private readonly IMapper _mapper;
+    private readonly IMemoryCache _cache;
 
-    public UpdateProductHandler(IProductRepository repository, IMapper mapper)
+    public UpdateProductHandler(IProductRepository repository, IMapper mapper, IMemoryCache cache)
     {
         _repository = repository;
         _mapper = mapper;
+        _cache = cache;
     }
 
     public async Task<ProductDto> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
@@ -46,6 +53,7 @@ public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, Produc
 
         product.Update(request.Name, request.Description, request.Price, request.CategoryId, request.Stock);
         await _repository.UpdateAsync(product);
+        ProductCacheHelper.InvalidateAll(_cache);
         return _mapper.Map<ProductDto>(product);
     }
 }
@@ -53,8 +61,13 @@ public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, Produc
 public class DeleteProductHandler : IRequestHandler<DeleteProductCommand>
 {
     private readonly IProductRepository _repository;
+    private readonly IMemoryCache _cache;
 
-    public DeleteProductHandler(IProductRepository repository) => _repository = repository;
+    public DeleteProductHandler(IProductRepository repository, IMemoryCache cache)
+    {
+        _repository = repository;
+        _cache = cache;
+    }
 
     public async Task Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
@@ -62,24 +75,60 @@ public class DeleteProductHandler : IRequestHandler<DeleteProductCommand>
             ?? throw new NotFoundException(nameof(Product), request.Id);
 
         await _repository.DeleteAsync(request.Id);
+        ProductCacheHelper.InvalidateAll(_cache);
     }
 }
 
-public class GetProductsHandler : IRequestHandler<GetProductsQuery, IEnumerable<ProductDto>>
+public static class ProductCacheHelper
+{
+    private const string TokenKey = "products_cache_cts";
+
+    public static void InvalidateAll(IMemoryCache cache)
+    {
+        if (cache.TryGetValue(TokenKey, out CancellationTokenSource? cts))
+            cts?.Cancel();
+        cache.Remove(TokenKey);
+    }
+
+    public static CancellationTokenSource GetOrCreateToken(IMemoryCache cache)
+    {
+        return cache.GetOrCreate(TokenKey, entry =>
+        {
+            entry.Priority = CacheItemPriority.NeverRemove;
+            return new CancellationTokenSource();
+        })!;
+    }
+}
+
+public class GetProductsHandler : IRequestHandler<GetProductsQuery, PagedResult<ProductDto>>
 {
     private readonly IProductRepository _repository;
     private readonly IMapper _mapper;
+    private readonly IMemoryCache _cache;
 
-    public GetProductsHandler(IProductRepository repository, IMapper mapper)
+    public GetProductsHandler(IProductRepository repository, IMapper mapper, IMemoryCache cache)
     {
         _repository = repository;
-        _mapper = mapper;
+        _mapper     = mapper;
+        _cache      = cache;
     }
 
-    public async Task<IEnumerable<ProductDto>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+    public async Task<PagedResult<ProductDto>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
     {
-        var products = await _repository.GetAllAsync();
-        return _mapper.Map<IEnumerable<ProductDto>>(products);
+        var cacheKey = $"products:{request.Name}:{request.CategoryId}:{request.Page}:{request.PageSize}";
+
+        if (_cache.TryGetValue(cacheKey, out PagedResult<ProductDto>? cached))
+            return cached!;
+
+        var (items, total) = await _repository.SearchAsync(request.Name, request.CategoryId, request.Page, request.PageSize);
+        var result = new PagedResult<ProductDto>(_mapper.Map<IEnumerable<ProductDto>>(items), total, request.Page, request.PageSize);
+
+        var cts = ProductCacheHelper.GetOrCreateToken(_cache);
+        var options = new MemoryCacheEntryOptions()
+            .SetAbsoluteExpiration(TimeSpan.FromMinutes(2))
+            .AddExpirationToken(new CancellationChangeToken(cts.Token));
+        _cache.Set(cacheKey, result, options);
+        return result;
     }
 }
 
@@ -100,5 +149,72 @@ public class GetProductByIdHandler : IRequestHandler<GetProductByIdQuery, Produc
             ?? throw new NotFoundException(nameof(Product), request.Id);
 
         return _mapper.Map<ProductDto>(product);
+    }
+}
+
+public class GetLowStockProductsHandler : IRequestHandler<GetLowStockProductsQuery, IEnumerable<ProductDto>>
+{
+    private readonly IProductRepository _repository;
+    private readonly IMapper _mapper;
+
+    public GetLowStockProductsHandler(IProductRepository repository, IMapper mapper)
+    {
+        _repository = repository;
+        _mapper = mapper;
+    }
+
+    public async Task<IEnumerable<ProductDto>> Handle(GetLowStockProductsQuery request, CancellationToken cancellationToken)
+    {
+        var products = await _repository.GetLowStockAsync();
+        return _mapper.Map<IEnumerable<ProductDto>>(products);
+    }
+}
+
+public class UpdateStockHandler : IRequestHandler<UpdateStockCommand, ProductDto>
+{
+    private readonly IProductRepository _repository;
+    private readonly IMapper _mapper;
+
+    public UpdateStockHandler(IProductRepository repository, IMapper mapper)
+    {
+        _repository = repository;
+        _mapper = mapper;
+    }
+
+    public async Task<ProductDto> Handle(UpdateStockCommand request, CancellationToken cancellationToken)
+    {
+        var product = await _repository.GetByIdAsync(request.Id)
+            ?? throw new NotFoundException(nameof(Product), request.Id);
+
+        product.UpdateStock(request.Stock);
+        await _repository.UpdateAsync(product);
+        return _mapper.Map<ProductDto>(product);
+    }
+}
+
+public class GetDashboardHandler : IRequestHandler<GetDashboardQuery, DashboardDto>
+{
+    private readonly IProductRepository _repository;
+    private readonly IMapper _mapper;
+
+    public GetDashboardHandler(IProductRepository repository, IMapper mapper)
+    {
+        _repository = repository;
+        _mapper = mapper;
+    }
+
+    public async Task<DashboardDto> Handle(GetDashboardQuery request, CancellationToken cancellationToken)
+    {
+        var totalProducts   = await _repository.CountAsync();
+        var totalStockValue = await _repository.GetTotalStockValueAsync();
+        var lowStock        = await _repository.GetLowStockAsync();
+        var byCategory      = await _repository.GetCountByCategoryAsync();
+
+        return new DashboardDto(
+            TotalProducts:      totalProducts,
+            TotalStockValue:    totalStockValue,
+            LowStockProducts:   _mapper.Map<IEnumerable<ProductDto>>(lowStock),
+            ProductsByCategory: byCategory.Select(x => new CategoryStockDto(x.CategoryId, x.Count))
+        );
     }
 }

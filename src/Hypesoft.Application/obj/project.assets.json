@@ -94,6 +94,25 @@
           }
         }
       },
+      "Microsoft.Extensions.Caching.Abstractions/9.0.13": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "9.0.13"
+        },
+        "compile": {
+          "lib/net9.0/Microsoft.Extensions.Caching.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Caching.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
       "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.0": {
         "type": "package",
         "compile": {
@@ -140,23 +159,20 @@
           }
         }
       },
-      "Microsoft.Extensions.Primitives/6.0.0": {
+      "Microsoft.Extensions.Primitives/9.0.13": {
         "type": "package",
-        "dependencies": {
-          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
-        },
         "compile": {
-          "lib/net6.0/Microsoft.Extensions.Primitives.dll": {
+          "lib/net9.0/Microsoft.Extensions.Primitives.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net6.0/Microsoft.Extensions.Primitives.dll": {
+          "lib/net9.0/Microsoft.Extensions.Primitives.dll": {
             "related": ".xml"
           }
         },
         "build": {
-          "buildTransitive/netcoreapp3.1/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "Microsoft.NETCore.Platforms/5.0.0": {
@@ -191,7 +207,7 @@
           }
         }
       },
-      "MongoDB.Bson/3.6.0": {
+      "MongoDB.Bson/3.7.0": {
         "type": "package",
         "dependencies": {
           "System.Memory": "4.5.5",
@@ -208,12 +224,12 @@
           }
         }
       },
-      "MongoDB.Driver/3.6.0": {
+      "MongoDB.Driver/3.7.0": {
         "type": "package",
         "dependencies": {
           "DnsClient": "1.6.1",
           "Microsoft.Extensions.Logging.Abstractions": "2.0.0",
-          "MongoDB.Bson": "3.6.0",
+          "MongoDB.Bson": "3.7.0",
           "SharpCompress": "0.30.1",
           "Snappier": "1.0.0",
           "System.Buffers": "4.5.1",
@@ -270,20 +286,17 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Runtime.CompilerServices.Unsafe/6.0.0": {
+      "System.Runtime.CompilerServices.Unsafe/5.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
+          "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
+          "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {
             "related": ".xml"
           }
-        },
-        "build": {
-          "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
       "System.Security.AccessControl/5.0.0": {
@@ -470,6 +483,34 @@
         "mediatr.contracts.nuspec"
       ]
     },
+    "Microsoft.Extensions.Caching.Abstractions/9.0.13": {
+      "sha512": "nTT90JYIpcXEy6fcU8LPVycONkO6wipROgP9pyC4uxBif4fazu2rDzlWSntqtzr5p8GbQL2EopsYuTZR3yoeag==",
+      "type": "package",
+      "path": "microsoft.extensions.caching.abstractions/9.0.13",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.Caching.Abstractions.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Caching.Abstractions.targets",
+        "lib/net462/Microsoft.Extensions.Caching.Abstractions.dll",
+        "lib/net462/Microsoft.Extensions.Caching.Abstractions.xml",
+        "lib/net8.0/Microsoft.Extensions.Caching.Abstractions.dll",
+        "lib/net8.0/Microsoft.Extensions.Caching.Abstractions.xml",
+        "lib/net9.0/Microsoft.Extensions.Caching.Abstractions.dll",
+        "lib/net9.0/Microsoft.Extensions.Caching.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Caching.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Caching.Abstractions.xml",
+        "microsoft.extensions.caching.abstractions.9.0.13.nupkg.sha512",
+        "microsoft.extensions.caching.abstractions.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.0": {
       "sha512": "cjWrLkJXK0rs4zofsK4bSdg+jhDLTaxrkXu4gS6Y7MAlCvRyNNgwY/lJi5RDlQOnSZweHqoyvgvbdvQsRIW+hg==",
       "type": "package",
@@ -536,27 +577,30 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.Primitives/6.0.0": {
-      "sha512": "9+PnzmQFfEFNR9J2aDTfJGGupShHjOuGw4VUv+JB044biSHrnmCIMD+mJHmb2H7YryrfBEXDurxQ47gJZdCKNQ==",
+    "Microsoft.Extensions.Primitives/9.0.13": {
+      "sha512": "cqzLFZ6rIEX/N1mJAGN8HLqWhlks2G3eYO+9pCShMLqxeBLN7ndS+MbmxiuQiQ0Tj/Q3tVHRWx91n17yLczjmg==",
       "type": "package",
-      "path": "microsoft.extensions.primitives/6.0.0",
+      "path": "microsoft.extensions.primitives/9.0.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
+        "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.Primitives.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
         "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Primitives.targets",
-        "buildTransitive/netcoreapp3.1/_._",
-        "lib/net461/Microsoft.Extensions.Primitives.dll",
-        "lib/net461/Microsoft.Extensions.Primitives.xml",
-        "lib/net6.0/Microsoft.Extensions.Primitives.dll",
-        "lib/net6.0/Microsoft.Extensions.Primitives.xml",
-        "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.dll",
-        "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.xml",
+        "lib/net462/Microsoft.Extensions.Primitives.dll",
+        "lib/net462/Microsoft.Extensions.Primitives.xml",
+        "lib/net8.0/Microsoft.Extensions.Primitives.dll",
+        "lib/net8.0/Microsoft.Extensions.Primitives.xml",
+        "lib/net9.0/Microsoft.Extensions.Primitives.dll",
+        "lib/net9.0/Microsoft.Extensions.Primitives.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Primitives.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Primitives.xml",
-        "microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+        "microsoft.extensions.primitives.9.0.13.nupkg.sha512",
         "microsoft.extensions.primitives.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -623,10 +667,10 @@
         "version.txt"
       ]
     },
-    "MongoDB.Bson/3.6.0": {
-      "sha512": "lP+nZHej9cGFVsZSZQhSdBpD60q7a/ZiLBJcfd+CRWs36BHYteaMx6m1qaHCBWT1wft640r9I4SexqpMc3VscA==",
+    "MongoDB.Bson/3.7.0": {
+      "sha512": "u8f0UAYe2/LWdvLEwwIjkCd2Rx6vBo6Yab+i+D4B3E0AvK1ndzIsIHuGBCeYeg5r8+/V+m1TXLonlhwT9Vfdrg==",
       "type": "package",
-      "path": "mongodb.bson/3.6.0",
+      "path": "mongodb.bson/3.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -637,15 +681,15 @@
         "lib/net6.0/MongoDB.Bson.xml",
         "lib/netstandard2.1/MongoDB.Bson.dll",
         "lib/netstandard2.1/MongoDB.Bson.xml",
-        "mongodb.bson.3.6.0.nupkg.sha512",
+        "mongodb.bson.3.7.0.nupkg.sha512",
         "mongodb.bson.nuspec",
         "packageIcon.png"
       ]
     },
-    "MongoDB.Driver/3.6.0": {
-      "sha512": "MzEVPUo9FJ3A2fvXdKr0vGllbiAGvpyLa8bU6bucKSKndraSjfgGDn/J+ek/SrUK4A3yozYZBkwJZm8qe36VmQ==",
+    "MongoDB.Driver/3.7.0": {
+      "sha512": "3Xr9Z6GzfewLbPNCtC+9Z8AvU9rtWzPG0Dl7BPYF2MiMxGMsrU/dp2cYOY39yxzOJAye/lWIWYX/lVmyQLQbYQ==",
       "type": "package",
-      "path": "mongodb.driver/3.6.0",
+      "path": "mongodb.driver/3.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -656,7 +700,7 @@
         "lib/net6.0/MongoDB.Driver.xml",
         "lib/netstandard2.1/MongoDB.Driver.dll",
         "lib/netstandard2.1/MongoDB.Driver.xml",
-        "mongodb.driver.3.6.0.nupkg.sha512",
+        "mongodb.driver.3.7.0.nupkg.sha512",
         "mongodb.driver.nuspec",
         "packageIcon.png"
       ]
@@ -751,29 +795,36 @@
         "version.txt"
       ]
     },
-    "System.Runtime.CompilerServices.Unsafe/6.0.0": {
-      "sha512": "/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
+    "System.Runtime.CompilerServices.Unsafe/5.0.0": {
+      "sha512": "ZD9TMpsmYJLrxbbmdvhwt9YEgG5WntEnZ/d1eH8JBX9LBp+Ju8BSBhUGbZMNVHHomWo2KVImJhTDl2hIgw/6MA==",
       "type": "package",
-      "path": "system.runtime.compilerservices.unsafe/6.0.0",
+      "path": "system.runtime.compilerservices.unsafe/5.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "buildTransitive/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.targets",
-        "buildTransitive/netcoreapp3.1/_._",
-        "lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
-        "lib/net461/System.Runtime.CompilerServices.Unsafe.xml",
-        "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll",
-        "lib/net6.0/System.Runtime.CompilerServices.Unsafe.xml",
-        "lib/netcoreapp3.1/System.Runtime.CompilerServices.Unsafe.dll",
-        "lib/netcoreapp3.1/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/net45/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/net45/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
         "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
         "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
-        "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+        "ref/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/net461/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.xml",
+        "system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
         "system.runtime.compilerservices.unsafe.nuspec",
-        "useSharedDesignerContext.txt"
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.Security.AccessControl/5.0.0": {
@@ -908,7 +959,8 @@
       "FluentValidation >= 11.*",
       "FluentValidation.DependencyInjectionExtensions >= 11.*",
       "Hypesoft.Domain >= 1.0.0",
-      "MediatR >= 12.*"
+      "MediatR >= 12.*",
+      "Microsoft.Extensions.Caching.Abstractions >= 9.*"
     ]
   },
   "packageFolders": {
@@ -980,6 +1032,10 @@
           "MediatR": {
             "target": "Package",
             "version": "[12.*, )"
+          },
+          "Microsoft.Extensions.Caching.Abstractions": {
+            "target": "Package",
+            "version": "[9.*, )"
           }
         },
         "imports": [

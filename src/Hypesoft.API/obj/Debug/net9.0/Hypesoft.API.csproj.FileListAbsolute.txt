@@ -69,3 +69,5 @@ C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.API\obj\
 C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.API\obj\Debug\net9.0\Hypesoft.API.pdb
 C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.API\obj\Debug\net9.0\Hypesoft.API.genruntimeconfig.cache
 C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.API\obj\Debug\net9.0\ref\Hypesoft.API.dll
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.API\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\Mathe\Desktop\PastaDeProgramas\CSharp\HypesoftAPI\src\Hypesoft.API\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll

@@ -41,4 +41,11 @@ public class Product : BaseEntity
         Stock = stock;
         UpdatedAt = DateTime.UtcNow;
     }
+
+    public void UpdateStock(int stock)
+    {
+        if (stock < 0) throw new DomainException("Stock cannot be negative.");
+        Stock = stock;
+        UpdatedAt = DateTime.UtcNow;
+    }
 }
