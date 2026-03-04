@@ -39,9 +39,9 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(string id, [FromBody] UpdateProductCommand command)
+    public async Task<IActionResult> Update(string id, [FromBody] UpdateProductBody body)
     {
-        var result = await _mediator.Send(command with { Id = id });
+        var result = await _mediator.Send(new UpdateProductCommand(id, body.Name, body.Description, body.Price, body.CategoryId, body.Stock));
         return Ok(result);
     }
 
@@ -61,3 +61,4 @@ public class ProductsController : ControllerBase
 }
 
 public record UpdateStockRequest(int Stock);
+public record UpdateProductBody(string Name, string Description, decimal Price, string CategoryId, int Stock);

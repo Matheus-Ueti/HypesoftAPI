@@ -31,9 +31,9 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(string id, [FromBody] UpdateCategoryCommand command)
+    public async Task<IActionResult> Update(string id, [FromBody] UpdateCategoryBody body)
     {
-        var result = await _mediator.Send(command with { Id = id });
+        var result = await _mediator.Send(new UpdateCategoryCommand(id, body.Name, body.Description));
         return Ok(result);
     }
 
@@ -44,3 +44,5 @@ public class CategoriesController : ControllerBase
         return NoContent();
     }
 }
+
+public record UpdateCategoryBody(string Name, string? Description);
