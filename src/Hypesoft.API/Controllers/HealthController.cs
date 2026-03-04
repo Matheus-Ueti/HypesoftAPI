@@ -1,14 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Hypesoft.API.Controllers;
-
-[ApiController]
-[Route("health")]
-[AllowAnonymous]
-public class HealthController : ControllerBase
-{
-    [HttpGet]
-    public IActionResult Get() =>
-        Ok(new { status = "healthy", timestamp = DateTime.UtcNow });
-}
+// Health check endpoints are mapped via MapHealthChecks in Program.cs
+// GET /health       → liveness (always healthy if API is up)
+// GET /health/ready → readiness with MongoDB connectivity check

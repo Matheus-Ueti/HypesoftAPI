@@ -15,4 +15,11 @@ public class MongoDbContext
 
     public IMongoCollection<T> GetCollection<T>(string name) =>
         _database.GetCollection<T>(name);
+
+    public async Task<bool> PingAsync(CancellationToken ct = default)
+    {
+        var result = await _database.RunCommandAsync<MongoDB.Bson.BsonDocument>(
+            new MongoDB.Bson.BsonDocument("ping", 1), cancellationToken: ct);
+        return result != null;
+    }
 }
