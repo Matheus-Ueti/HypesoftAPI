@@ -33,13 +33,19 @@ $clientBody = @{
     enabled = $true
     publicClient = $true
     directAccessGrantsEnabled = $true
-    redirectUris = @("http://localhost:5173/*")
-    webOrigins = @("http://localhost:5173")
+    redirectUris = @("http://localhost:5173/*", "http://localhost:5174/*")
+    webOrigins = @("http://localhost:5173", "http://localhost:5174")
 } | ConvertTo-Json
 try { Invoke-RestMethod -Uri "http://localhost:8080/admin/realms/shopsense/clients" -Method Post -Headers $headers -Body $clientBody } catch {}
 
-# 2a. Adicionar audience mapper no client
+# 2b. Garantir direct access grants (caso o client já existia sem ele)
 $clientId = (Invoke-RestMethod -Uri "http://localhost:8080/admin/realms/shopsense/clients?clientId=shopsense-frontend" -Method Get -Headers $headers)[0].id
+$existingClient = Invoke-RestMethod -Uri "http://localhost:8080/admin/realms/shopsense/clients/$clientId" -Method Get -Headers $headers
+$existingClient.directAccessGrantsEnabled = $true
+$existingClient.publicClient = $true
+$existingClient.redirectUris = @("http://localhost:5173/*", "http://localhost:5174/*")
+$existingClient.webOrigins = @("http://localhost:5173", "http://localhost:5174")
+Invoke-RestMethod -Uri "http://localhost:8080/admin/realms/shopsense/clients/$clientId" -Method Put -Headers $headers -Body ($existingClient | ConvertTo-Json -Depth 10) | Out-Null
 $mapperBody = @{
     name = "audience-mapper"
     protocol = "openid-connect"
