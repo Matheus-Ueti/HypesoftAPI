@@ -39,18 +39,12 @@ public class CategoryRepository : BaseMongoRepository<Category>, ICategoryReposi
 {
     public CategoryRepository(MongoDbContext context)
         : base(context, "categories") { }
-
-    public async Task<bool> ExistsByNameAsync(string name) =>
-        await _collection.Find(x => x.Name == name).AnyAsync();
 }
 
 public class ProductRepository : BaseMongoRepository<Product>, IProductRepository
 {
     public ProductRepository(MongoDbContext context)
         : base(context, "products") { }
-
-    public async Task<IEnumerable<Product>> GetByCategoryAsync(string categoryId) =>
-        await _collection.Find(x => x.CategoryId == categoryId).ToListAsync();
 
     public async Task<(IEnumerable<Product> Items, long Total)> SearchAsync(
         string? name, string? categoryId, int page, int pageSize)
@@ -75,21 +69,4 @@ public class ProductRepository : BaseMongoRepository<Product>, IProductRepositor
 
     public async Task<IEnumerable<Product>> GetLowStockAsync(int threshold = 10) =>
         await _collection.Find(x => x.Stock < threshold).ToListAsync();
-
-    public async Task<long> CountAsync() =>
-        await _collection.CountDocumentsAsync(_ => true);
-
-    public async Task<decimal> GetTotalStockValueAsync()
-    {
-        var products = await _collection.Find(_ => true).ToListAsync();
-        return products.Sum(p => p.Price * p.Stock);
-    }
-
-    public async Task<IEnumerable<(string CategoryId, int Count)>> GetCountByCategoryAsync()
-    {
-        var products = await _collection.Find(_ => true).ToListAsync();
-        return products
-            .GroupBy(p => p.CategoryId)
-            .Select(g => (g.Key, g.Count()));
-    }
 }

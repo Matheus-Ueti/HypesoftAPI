@@ -138,6 +138,7 @@ public class DeleteCategoryHandlerTests
 public class CreateProductHandlerTests
 {
     private readonly IProductRepository _repository = Substitute.For<IProductRepository>();
+    private readonly IMemoryCache        _cache      = Substitute.For<IMemoryCache>();
     private readonly IMapper            _mapper;
 
     public CreateProductHandlerTests()
@@ -152,7 +153,7 @@ public class CreateProductHandlerTests
         var command = new CreateProductCommand("Notebook", "Gamer", 4999.99m, "cat-01", 10);
         _repository.CreateAsync(Arg.Any<Product>()).Returns(c => c.Arg<Product>());
 
-        var result = await new CreateProductHandler(_repository, _mapper)
+        var result = await new CreateProductHandler(_repository, _mapper, _cache)
             .Handle(command, CancellationToken.None);
 
         result.Name.Should().Be("Notebook");
@@ -168,7 +169,7 @@ public class CreateProductHandlerTests
         var command = new CreateProductCommand("Notebook", "Gamer", 4999.99m, "cat-01", 10);
         _repository.CreateAsync(Arg.Any<Product>()).Returns(c => c.Arg<Product>());
 
-        await new CreateProductHandler(_repository, _mapper)
+        await new CreateProductHandler(_repository, _mapper, _cache)
             .Handle(command, CancellationToken.None);
 
         await _repository.Received(1).CreateAsync(Arg.Any<Product>());
@@ -178,6 +179,7 @@ public class CreateProductHandlerTests
 public class UpdateProductHandlerTests
 {
     private readonly IProductRepository _repository = Substitute.For<IProductRepository>();
+    private readonly IMemoryCache        _cache      = Substitute.For<IMemoryCache>();
     private readonly IMapper            _mapper;
 
     public UpdateProductHandlerTests()
@@ -194,7 +196,7 @@ public class UpdateProductHandlerTests
         _repository.UpdateAsync(Arg.Any<Product>()).Returns(Task.CompletedTask);
 
         var command = new UpdateProductCommand(existing.Id, "Novo", "Nova desc", 200m, "cat-02", 10);
-        var result  = await new UpdateProductHandler(_repository, _mapper)
+        var result  = await new UpdateProductHandler(_repository, _mapper, _cache)
             .Handle(command, CancellationToken.None);
 
         result.Name.Should().Be("Novo");
@@ -208,7 +210,7 @@ public class UpdateProductHandlerTests
         _repository.GetByIdAsync(Arg.Any<string>()).ReturnsNull();
 
         var command = new UpdateProductCommand("nao-existe", "X", "X", 1m, "cat", 1);
-        var act     = () => new UpdateProductHandler(_repository, _mapper)
+        var act     = () => new UpdateProductHandler(_repository, _mapper, _cache)
             .Handle(command, CancellationToken.None);
 
         await act.Should().ThrowAsync<NotFoundException>();
@@ -218,6 +220,7 @@ public class UpdateProductHandlerTests
 public class DeleteProductHandlerTests
 {
     private readonly IProductRepository _repository = Substitute.For<IProductRepository>();
+    private readonly IMemoryCache        _cache      = Substitute.For<IMemoryCache>();
 
     [Fact]
     public async Task Handle_ShouldCallDeleteAsync_WhenProductExists()
@@ -226,7 +229,7 @@ public class DeleteProductHandlerTests
         _repository.GetByIdAsync(existing.Id).Returns(existing);
         _repository.DeleteAsync(existing.Id).Returns(Task.CompletedTask);
 
-        await new DeleteProductHandler(_repository)
+        await new DeleteProductHandler(_repository, _cache)
             .Handle(new DeleteProductCommand(existing.Id), CancellationToken.None);
 
         await _repository.Received(1).DeleteAsync(existing.Id);
@@ -237,7 +240,7 @@ public class DeleteProductHandlerTests
     {
         _repository.GetByIdAsync(Arg.Any<string>()).ReturnsNull();
 
-        var act = () => new DeleteProductHandler(_repository)
+        var act = () => new DeleteProductHandler(_repository, _cache)
             .Handle(new DeleteProductCommand("nao-existe"), CancellationToken.None);
 
         await act.Should().ThrowAsync<NotFoundException>();

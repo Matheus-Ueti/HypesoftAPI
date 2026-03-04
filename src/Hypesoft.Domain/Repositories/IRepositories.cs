@@ -11,17 +11,10 @@ public interface IRepository<T>
     Task DeleteAsync(string id);
 }
 
-public interface ICategoryRepository : IRepository<Category>
-{
-    Task<bool> ExistsByNameAsync(string name);
-}
+public interface ICategoryRepository : IRepository<Category> { }
 
 public interface IProductRepository : IRepository<Product>
 {
-    Task<IEnumerable<Product>> GetByCategoryAsync(string categoryId);
     Task<(IEnumerable<Product> Items, long Total)> SearchAsync(string? name, string? categoryId, int page, int pageSize);
     Task<IEnumerable<Product>> GetLowStockAsync(int threshold = 10);
-    Task<long> CountAsync();
-    Task<decimal> GetTotalStockValueAsync();
-    Task<IEnumerable<(string CategoryId, int Count)>> GetCountByCategoryAsync();
 }

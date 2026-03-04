@@ -205,16 +205,15 @@ public class GetDashboardHandler : IRequestHandler<GetDashboardQuery, DashboardD
 
     public async Task<DashboardDto> Handle(GetDashboardQuery request, CancellationToken cancellationToken)
     {
-        var totalProducts   = await _repository.CountAsync();
-        var totalStockValue = await _repository.GetTotalStockValueAsync();
-        var lowStock        = await _repository.GetLowStockAsync();
-        var byCategory      = await _repository.GetCountByCategoryAsync();
+        // Uma única query para derivar todas as métricas do dashboard
+        var all = (await _repository.GetAllAsync()).ToList();
 
         return new DashboardDto(
-            TotalProducts:      totalProducts,
-            TotalStockValue:    totalStockValue,
-            LowStockProducts:   _mapper.Map<IEnumerable<ProductDto>>(lowStock),
-            ProductsByCategory: byCategory.Select(x => new CategoryStockDto(x.CategoryId, x.Count))
+            TotalProducts:      all.Count,
+            TotalStockValue:    all.Sum(p => p.Price * p.Stock),
+            LowStockProducts:   _mapper.Map<IEnumerable<ProductDto>>(all.Where(p => p.Stock < 10)),
+            ProductsByCategory: all.GroupBy(p => p.CategoryId)
+                                   .Select(g => new CategoryStockDto(g.Key, g.Count()))
         );
     }
 }
