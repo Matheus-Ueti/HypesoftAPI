@@ -25,14 +25,13 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.0
     container_name: keycloak
-    command: start-dev --import-realm
+    command: start-dev
     environment:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
     ports:
       - "8080:8080"
     volumes:
-      - C:/Users/Mathe/Desktop/PastaDeProgramas/CSharp/HypesoftFront/keycloak:/opt/keycloak/data/import:ro
       - keycloak_data:/opt/keycloak/data
 
   api:

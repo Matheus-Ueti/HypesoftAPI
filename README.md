@@ -42,29 +42,44 @@ tests/
 
 ## Como rodar
 
-### 1. Subir infraestrutura (MongoDB + Keycloak)
+### 1. Subir toda a infraestrutura
 
 ```bash
-docker-compose up -d mongodb keycloak
+docker compose up -d
 ```
 
-Aguarde ~15 segundos para o Keycloak inicializar completamente.
+Aguarde ~20 segundos para o Keycloak inicializar completamente.
 
-### 2. Configurar o Keycloak
-
-Execute o script de setup automático (cria o realm, client e usuário de teste):
+### 2. Configurar o Keycloak (realm + usuário de teste)
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File setup-keycloak.ps1
 ```
 
-### 3. Rodar a API
+### 3. Acessar o frontend
 
-```bash
-dotnet run --project src/Hypesoft.API/Hypesoft.API.csproj
-```
+Abra **http://localhost:5173** e faça login com:
 
-A API estará disponível em: **http://localhost:5000**
+| Campo | Valor |
+|---|---|
+| Usuário | `testuser` |
+| Senha | `Test@123` |
+
+---
+
+## URLs de Acesso
+
+| Serviço | URL |
+|---|---|
+| Frontend | http://localhost:5173 |
+| API | http://localhost:5000 |
+| Swagger | http://localhost:5000/swagger |
+| Health (liveness) | http://localhost:5000/health |
+| Health (readiness) | http://localhost:5000/health/ready |
+| Keycloak Admin | http://localhost:8080 |
+| Mongo Express | http://localhost:8081 |
+
+**Keycloak Admin:** usuário `admin` / senha `admin`
 
 ---
 
@@ -113,6 +128,13 @@ Use o `access_token` retornado no header `Authorization: Bearer <token>`.
 ## Testes
 
 ```bash
+# Testes unitários (53 testes)
+dotnet test tests/Hypesoft.Tests/
+
+# Testes de integração com MongoDB real via Testcontainers (12 testes)
+dotnet test tests/Hypesoft.IntegrationTests/
+
+# Todos de uma vez
 dotnet test HypesoftChallengeBackEnd.sln
 ```
 
@@ -139,7 +161,7 @@ No arquivo `src/Hypesoft.API/appsettings.json`:
 
 ## CORS
 
-Configurado para aceitar requisições de `http://localhost:5173` (frontend Vue/Vite).
+Configurado para aceitar requisições de `http://localhost:5173` e `http://localhost:5174`.
 
 ---
 

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper"                          Version="13.*" />
+    <PackageReference Include="FluentAssertions"                   Version="6.*" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk"             Version="17.*" />
+    <PackageReference Include="Testcontainers.MongoDb"             Version="4.*" />
+    <PackageReference Include="xunit"                              Version="2.*" />
+    <PackageReference Include="xunit.runner.visualstudio"          Version="2.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Hypesoft.Domain\Hypesoft.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Hypesoft.Application\Hypesoft.Application.csproj" />
+    <ProjectReference Include="..\..\src\Hypesoft.Infrastructure\Hypesoft.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
